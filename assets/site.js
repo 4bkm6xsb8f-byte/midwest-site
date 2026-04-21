@@ -38,7 +38,7 @@ function ensureFooter() {
   footer.className = "site-footer";
   footer.innerHTML = `
     <div class="wrap footer-inner">
-      <p>&copy; 2026 Midwest Equipment Dock and Lift Services. All rights reserved.</p>
+      <p>&copy; <span data-current-year></span> Midwest Equipment Dock and Lift Services. All rights reserved.</p>
       <div class="footer-links">
         <a href="https://app.midwestdockandlift.com" target="_blank" rel="noreferrer">Staff Login</a>
         <a href="${prefix}index.html#quote">Request Estimate</a>
@@ -48,6 +48,13 @@ function ensureFooter() {
   `;
 
   document.body.appendChild(footer);
+}
+
+function updateCurrentYear() {
+  const year = new Date().getFullYear();
+  document.querySelectorAll("[data-current-year]").forEach((node) => {
+    node.textContent = year;
+  });
 }
 
 if (form) {
@@ -79,3 +86,4 @@ if (form) {
 
 ensureStaffNavLink();
 ensureFooter();
+updateCurrentYear();
