@@ -665,6 +665,24 @@ textarea:focus {
   font-size: 0.95rem;
 }
 
+.form-status {
+  margin: 0.8rem 0 0;
+  min-height: 1.45rem;
+  font-weight: 700;
+}
+
+.form-status[data-tone="info"] {
+  color: var(--ink);
+}
+
+.form-status[data-tone="success"] {
+  color: #12765d;
+}
+
+.form-status[data-tone="error"] {
+  color: #a33434;
+}
+
 .contact-actions {
   display: flex;
   flex-wrap: wrap;
