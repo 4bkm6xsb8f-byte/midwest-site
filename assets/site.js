@@ -1,6 +1,7 @@
 const DASHBOARD_URL = "https://app.midwestdockandlift.com";
 const PAGE_VIEW_ENDPOINT = `${DASHBOARD_URL}/api/analytics/page-view`;
 const SALES_INQUIRY_ENDPOINT = `${DASHBOARD_URL}/api/public/sales-inquiries`;
+const FAQ_ENDPOINT = `${DASHBOARD_URL}/api/public/faqs`;
 const form = document.querySelector("#estimate-form");
 
 function pathPrefix() {
@@ -101,6 +102,49 @@ function setFormStatus(message, tone) {
   status.dataset.tone = tone;
 }
 
+function populateFaqs(entries) {
+  const list = document.querySelector("[data-faq-list]");
+  if (!list || !Array.isArray(entries) || entries.length === 0) {
+    return;
+  }
+
+  list.innerHTML = "";
+  entries.forEach((entry) => {
+    const article = document.createElement("article");
+    article.className = "card";
+
+    const heading = document.createElement("h3");
+    heading.textContent = entry.question || "";
+
+    const body = document.createElement("p");
+    body.textContent = entry.answer || "";
+
+    article.append(heading, body);
+    list.appendChild(article);
+  });
+}
+
+async function loadFaqs() {
+  try {
+    const response = await fetch(FAQ_ENDPOINT, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+      },
+      mode: "cors",
+    });
+
+    const body = await response.json().catch(() => ({}));
+    if (!response.ok) {
+      return;
+    }
+
+    populateFaqs(body.data || []);
+  } catch (_error) {
+    // Keep the baked-in fallback FAQ cards when the dashboard is unavailable.
+  }
+}
+
 function trackPageView() {
   const payload = {
     site_host: window.location.hostname,
@@ -165,3 +209,4 @@ ensureStaffNavLink();
 ensureFooter();
 updateCurrentYear();
 trackPageView();
+loadFaqs();
