@@ -7,15 +7,16 @@ function pathPrefix() {
 
 function ensureStaffNavLink() {
   document.querySelectorAll(".site-nav").forEach((nav) => {
-    if (nav.querySelector("[data-staff-link]")) {
+    if (nav.querySelector(".staff-link, [data-staff-link]")) {
       return;
     }
 
-    const prefix = pathPrefix();
     const staff = document.createElement("a");
-    staff.href = `${prefix}staff-login.html`;
+    staff.href = "https://app.midwestdockandlift.com";
     staff.className = "staff-link";
     staff.dataset.staffLink = "true";
+    staff.target = "_blank";
+    staff.rel = "noreferrer";
     staff.textContent = "Staff Login";
 
     const cta = nav.querySelector(".nav-cta");
@@ -39,7 +40,7 @@ function ensureFooter() {
     <div class="wrap footer-inner">
       <p>&copy; 2026 Midwest Equipment Dock and Lift Services. All rights reserved.</p>
       <div class="footer-links">
-        <a href="${prefix}staff-login.html">Staff Login</a>
+        <a href="https://app.midwestdockandlift.com" target="_blank" rel="noreferrer">Staff Login</a>
         <a href="${prefix}index.html#quote">Request Estimate</a>
         <a href="${prefix}index.html#resources">Seasonal Guides</a>
       </div>

@@ -69,7 +69,7 @@ a:hover {
   top: 0;
   z-index: 30;
   backdrop-filter: blur(12px);
-  background: rgba(245, 247, 250, 0.92);
+  background: rgba(245, 247, 250, 0.96);
   border-bottom: 1px solid var(--border);
 }
 
@@ -85,7 +85,7 @@ a:hover {
 .header-inner {
   grid-template-columns: auto 1fr;
   align-items: center;
-  padding: 0.9rem 0;
+  padding: 0.5rem 0;
 }
 
 .brand {
@@ -95,8 +95,9 @@ a:hover {
 }
 
 .brand-logo {
-  width: min(22rem, 42vw);
+  width: min(15.5rem, 28vw);
   height: auto;
+  filter: brightness(0) saturate(100%) invert(18%) sepia(24%) saturate(1367%) hue-rotate(169deg) brightness(94%) contrast(92%);
 }
 
 .brand-copy {
@@ -106,8 +107,8 @@ a:hover {
 .site-nav {
   display: flex;
   justify-content: flex-end;
-  flex-wrap: wrap;
-  gap: 0.9rem 1.15rem;
+  flex-wrap: nowrap;
+  gap: 0.65rem 0.95rem;
   align-items: center;
 }
 
@@ -115,8 +116,9 @@ a:hover {
   text-decoration: none;
   color: var(--navy);
   font-family: "Manrope", "Segoe UI", sans-serif;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   font-weight: 700;
+  white-space: nowrap;
 }
 
 .staff-link {
@@ -129,8 +131,8 @@ a:hover {
   align-items: center;
   justify-content: center;
   gap: 0.45rem;
-  min-height: 2.9rem;
-  padding: 0.72rem 1.15rem;
+  min-height: 2.75rem;
+  padding: 0.68rem 1rem;
   border-radius: 999px;
   border: 1px solid transparent;
   text-decoration: none;
@@ -158,15 +160,15 @@ a:hover {
 }
 
 .nav-cta {
-  background: rgba(23, 50, 77, 0.08);
+  background: rgba(23, 50, 77, 0.06);
   color: var(--navy);
-  border-color: var(--border);
+  border-color: rgba(23, 50, 77, 0.12);
   box-shadow: none;
 }
 
 .hero {
   position: relative;
-  min-height: 34rem;
+  min-height: 31rem;
   overflow: clip;
 }
 
@@ -197,7 +199,7 @@ a:hover {
 .hero-content {
   position: relative;
   z-index: 1;
-  padding: clamp(4rem, 9vw, 6.5rem) 0 8rem;
+  padding: clamp(4.6rem, 9vw, 6.8rem) 0 7rem;
   color: var(--white);
 }
 
@@ -215,7 +217,7 @@ a:hover {
   display: flex;
   flex-wrap: wrap;
   gap: 0.65rem;
-  margin-bottom: 1rem;
+  margin-bottom: 1.35rem;
 }
 
 .eyebrow-pill {
@@ -652,15 +654,17 @@ textarea:focus {
 .page-hero {
   background: linear-gradient(180deg, rgba(23, 50, 77, 0.96), rgba(63, 103, 136, 0.9));
   color: var(--white);
-  padding: 4rem 0 2.2rem;
+  padding: 4.75rem 0 2.5rem;
 }
 
 .page-hero h1 {
   max-width: 14ch;
   font-size: clamp(2.3rem, 5vw, 4rem);
+  margin-top: 0.7rem;
 }
 
 .page-hero p {
+  margin-top: 1rem;
   max-width: 46rem;
   color: rgba(255, 255, 255, 0.9);
 }
@@ -756,6 +760,11 @@ textarea:focus {
 @media (max-width: 760px) {
   .header-inner {
     grid-template-columns: 1fr;
+  }
+
+  .site-nav {
+    flex-wrap: wrap;
+    justify-content: flex-start;
   }
 
   .site-nav {
