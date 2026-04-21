@@ -1,98 +1,89 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 520" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1800 1800" role="img" aria-labelledby="title desc">
   <title id="title">Bodies of Water Serviced by Midwest</title>
-  <desc id="desc">Illustrated Northeast Wisconsin service-area map highlighting Mountain, Crivitz, Shawano, Lake Noquebay, Legend Lake, White Potato Lake, Chute Pond, and High Falls Flowage.</desc>
+  <desc id="desc">Branded service-area map highlighting Mountain, Crivitz, Shawano, Lake Noquebay, Legend Lake, White Potato Lake, Chute Pond, and High Falls Flowage in Northeast Wisconsin.</desc>
   <defs>
-    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
-      <stop offset="0%" stop-color="#17324d"/>
-      <stop offset="100%" stop-color="#3f6788"/>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#183650"/>
+      <stop offset="100%" stop-color="#315777"/>
     </linearGradient>
-    <linearGradient id="water" x1="0" x2="1" y1="0" y2="1">
-      <stop offset="0%" stop-color="#7ed1c2"/>
+    <linearGradient id="water" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#7ed6c5"/>
       <stop offset="100%" stop-color="#1f8a78"/>
     </linearGradient>
-    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
-      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#0b1a26" flood-opacity="0.18"/>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="20" stdDeviation="22" flood-color="#0b1a26" flood-opacity="0.18"/>
     </filter>
   </defs>
 
-  <rect width="760" height="520" rx="36" fill="#eef3f7"/>
-  <rect x="20" y="20" width="720" height="480" rx="28" fill="url(#bg)"/>
+  <rect width="1800" height="1800" rx="120" fill="#edf3f8"/>
+  <rect x="46" y="46" width="1708" height="1708" rx="94" fill="url(#bg)"/>
 
   <g opacity="0.18">
-    <path d="M151 107c43-33 100-43 152-30 48-18 100-19 147 0 51 20 86 57 103 111 15 50 10 102-17 148-27 46-69 76-127 91-36 9-72 8-107-2-47 12-93 6-135-19-52-30-82-72-92-130-13-72 10-127 76-169z" fill="#ffffff"/>
+    <path d="M356 486c109-135 262-206 426-203 113-78 256-107 396-70 154 41 282 143 345 291 68 160 57 335-37 483-101 158-259 252-456 277-120 15-237 1-344-40-151 56-315 42-449-44C82 1081 5 921 28 725c17-94 57-176 121-239 53-54 123-93 207-120z" fill="#ffffff"/>
   </g>
 
-  <g fill="none" stroke="#dbe7f1" stroke-linecap="round" stroke-linejoin="round" opacity="0.9">
-    <path stroke-width="4" d="M175 123c29 31 51 66 68 105 17 42 26 84 24 125"/>
-    <path stroke-width="4" d="M274 123c36 30 61 66 76 107 14 39 18 82 13 130"/>
-    <path stroke-width="4" d="M378 110c42 30 70 66 84 109 14 44 14 90 0 139"/>
-    <path stroke-width="4" d="M487 124c22 25 38 54 49 85 14 42 16 88 7 139"/>
-    <path stroke-width="3" d="M146 208h470"/>
-    <path stroke-width="3" d="M168 304h410"/>
+  <g fill="none" stroke="#d9e8f3" stroke-linecap="round" opacity="0.8">
+    <path d="M412 577c95 79 157 166 186 263 25 86 28 181 6 286" stroke-width="10"/>
+    <path d="M646 503c105 84 175 180 210 286 31 94 38 191 19 295" stroke-width="10"/>
+    <path d="M907 460c116 95 191 202 226 322 31 105 34 212 8 321" stroke-width="10"/>
+    <path d="M1185 514c84 77 146 166 181 264 34 98 42 200 24 307" stroke-width="10"/>
+    <path d="M356 752h1090" stroke-width="8"/>
+    <path d="M388 1017h1024" stroke-width="8"/>
   </g>
 
   <g font-family="Manrope, Arial, sans-serif" fill="#ffffff">
-    <text x="58" y="78" font-size="28" font-weight="800">Bodies of Water Serviced by Midwest</text>
-    <text x="58" y="108" font-size="16" opacity="0.85">Based in Mountain, Wisconsin and serving lake properties across Northeast Wisconsin.</text>
+    <text x="140" y="186" font-size="84" font-weight="800">Bodies of Water Serviced by Midwest</text>
+    <text x="140" y="262" font-size="36" opacity="0.9">Based in Mountain, Wisconsin and serving lake properties throughout Northeast Wisconsin.</text>
   </g>
 
   <g filter="url(#shadow)">
-    <path d="M483 170c17-1 29 14 31 31 2 16-8 33-25 37-17 5-35-6-40-22-4-15 2-33 17-42 5-3 11-4 17-4z" fill="url(#water)"/>
-    <path d="M404 217c18-2 35 12 38 29 4 18-7 38-25 44-18 6-40-4-47-21-7-17 0-39 17-48 5-2 11-4 17-4z" fill="url(#water)"/>
-    <path d="M336 189c16-2 31 9 35 25 5 17-4 35-20 42-17 7-38 0-47-15-9-14-7-35 6-46 7-5 16-6 26-6z" fill="url(#water)"/>
-    <path d="M278 257c17-2 32 11 35 27 4 17-7 35-24 40-17 5-36-3-44-19-8-16-3-36 12-45 6-2 13-3 21-3z" fill="url(#water)"/>
-    <path d="M224 209c14-2 28 7 33 20 6 16-1 34-16 41-15 8-35 4-45-10-10-13-10-33 1-45 7-4 16-6 27-6z" fill="url(#water)"/>
-    <path d="M187 163c13-1 24 8 27 20 4 13-3 28-15 33-13 6-29 1-36-10-8-11-6-27 4-36 6-4 13-6 20-7z" fill="url(#water)"/>
-    <path d="M528 236c18-1 32 14 34 31 2 18-10 35-27 39-17 4-35-6-40-23-5-15 2-34 17-42 5-3 10-4 16-5z" fill="url(#water)"/>
-    <path d="M563 170c15-1 27 11 29 25 2 15-7 29-21 34-14 4-30-3-36-16-7-13-2-30 10-38 5-2 11-4 18-5z" fill="url(#water)"/>
+    <ellipse cx="535" cy="679" rx="83" ry="78" fill="url(#water)"/>
+    <ellipse cx="626" cy="859" rx="95" ry="102" fill="url(#water)"/>
+    <ellipse cx="817" cy="821" rx="93" ry="95" fill="url(#water)"/>
+    <ellipse cx="984" cy="989" rx="104" ry="96" fill="url(#water)"/>
+    <ellipse cx="1162" cy="781" rx="98" ry="94" fill="url(#water)"/>
+    <ellipse cx="1266" cy="972" rx="90" ry="100" fill="url(#water)"/>
+    <ellipse cx="1402" cy="758" rx="78" ry="73" fill="url(#water)"/>
+    <ellipse cx="1498" cy="618" rx="63" ry="60" fill="url(#water)"/>
   </g>
 
-  <g font-family="IBM Plex Mono, monospace" font-size="13" font-weight="500">
-    <g>
-      <circle cx="194" cy="179" r="6" fill="#ffffff"/>
-      <path d="M200 179h56" stroke="#ffffff" stroke-width="2"/>
-      <text x="264" y="184" fill="#ffffff">Mountain</text>
-    </g>
-    <g>
-      <circle cx="228" cy="225" r="6" fill="#ffffff"/>
-      <path d="M234 225h56" stroke="#ffffff" stroke-width="2"/>
-      <text x="298" y="230" fill="#ffffff">Crivitz</text>
-    </g>
-    <g>
-      <circle cx="303" cy="282" r="6" fill="#ffffff"/>
-      <path d="M309 282h70" stroke="#ffffff" stroke-width="2"/>
-      <text x="387" y="287" fill="#ffffff">Shawano</text>
-    </g>
-    <g>
-      <circle cx="352" cy="215" r="6" fill="#ffffff"/>
-      <path d="M358 215h92" stroke="#ffffff" stroke-width="2"/>
-      <text x="458" y="220" fill="#ffffff">Lake Noquebay</text>
-    </g>
-    <g>
-      <circle cx="407" cy="244" r="6" fill="#ffffff"/>
-      <path d="M413 244h84" stroke="#ffffff" stroke-width="2"/>
-      <text x="505" y="249" fill="#ffffff">Legend Lake</text>
-    </g>
-    <g>
-      <circle cx="483" cy="190" r="6" fill="#ffffff"/>
-      <path d="M489 190h105" stroke="#ffffff" stroke-width="2"/>
-      <text x="602" y="195" fill="#ffffff">White Potato Lake</text>
-    </g>
-    <g>
-      <circle cx="528" cy="255" r="6" fill="#ffffff"/>
-      <path d="M534 255h84" stroke="#ffffff" stroke-width="2"/>
-      <text x="626" y="260" fill="#ffffff">Chute Pond</text>
-    </g>
-    <g>
-      <circle cx="564" cy="191" r="6" fill="#ffffff"/>
-      <path d="M570 191h105" stroke="#ffffff" stroke-width="2"/>
-      <text x="683" y="196" text-anchor="end" fill="#ffffff">High Falls Flowage</text>
-    </g>
+  <g fill="#ffffff" font-family="IBM Plex Mono, monospace" font-size="31" font-weight="500" stroke="#ffffff" stroke-linecap="round">
+    <circle cx="552" cy="659" r="14" stroke="none"/>
+    <path d="M566 659h178" stroke-width="6"/>
+    <text x="774" y="670" fill="#ffffff" stroke="none">Mountain</text>
+
+    <circle cx="632" cy="831" r="14" stroke="none"/>
+    <path d="M646 831h154" stroke-width="6"/>
+    <text x="828" y="842" fill="#ffffff" stroke="none">Crivitz</text>
+
+    <circle cx="840" cy="801" r="14" stroke="none"/>
+    <path d="M854 801h186" stroke-width="6"/>
+    <text x="1070" y="812" fill="#ffffff" stroke="none">Lake Noquebay</text>
+
+    <circle cx="1002" cy="966" r="14" stroke="none"/>
+    <path d="M1016 966h178" stroke-width="6"/>
+    <text x="1222" y="977" fill="#ffffff" stroke="none">Legend Lake</text>
+
+    <circle cx="1177" cy="759" r="14" stroke="none"/>
+    <path d="M1191 759h181" stroke-width="6"/>
+    <text x="1398" y="770" fill="#ffffff" stroke="none">White Potato Lake</text>
+
+    <circle cx="1284" cy="945" r="14" stroke="none"/>
+    <path d="M1298 945h153" stroke-width="6"/>
+    <text x="1478" y="956" fill="#ffffff" stroke="none">Chute Pond</text>
+
+    <circle cx="1402" cy="736" r="14" stroke="none"/>
+    <path d="M1416 736h170" stroke-width="6"/>
+    <text x="1614" y="696" text-anchor="end" fill="#ffffff" stroke="none">High Falls Flowage</text>
+
+    <circle cx="972" cy="1059" r="14" stroke="none"/>
+    <path d="M958 1059H776" stroke-width="6"/>
+    <text x="730" y="1070" text-anchor="end" fill="#ffffff" stroke="none">Shawano</text>
   </g>
 
   <g>
-    <rect x="56" y="386" width="648" height="80" rx="20" fill="#ffffff" opacity="0.94"/>
-    <text x="84" y="421" font-family="Manrope, Arial, sans-serif" font-size="18" font-weight="800" fill="#17324d">Seasonal dock, lift, storage, winterization, repair, and shoreline service.</text>
-    <text x="84" y="447" font-family="Source Sans 3, Arial, sans-serif" font-size="16" fill="#3f6788">Tell Midwest the lake, property address, and current setup to get to a more useful estimate faster.</text>
+    <rect x="132" y="1332" width="1536" height="250" rx="52" fill="#ffffff" opacity="0.97"/>
+    <text x="188" y="1426" font-family="Manrope, Arial, sans-serif" font-size="44" font-weight="800" fill="#17324d">Seasonal dock, lift, repair, storage, winterization, and shoreline service.</text>
+    <text x="188" y="1499" font-family="Source Sans 3, Arial, sans-serif" font-size="38" fill="#3f6788">Tell Midwest the lake, property address, and shoreline change to get to a faster estimate.</text>
   </g>
 </svg>
