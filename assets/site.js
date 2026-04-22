@@ -47,6 +47,8 @@ function ensureFooter() {
         <a href="${DASHBOARD_URL}" target="_blank" rel="noreferrer">Staff Login</a>
         <a href="${prefix}index.html#quote">Request Estimate</a>
         <a href="${prefix}index.html#resources">Seasonal Guides</a>
+        <a href="${prefix}support.html">Support</a>
+        <a href="${prefix}privacy.html">Privacy</a>
       </div>
     </div>
   `;
@@ -74,22 +76,29 @@ function getSessionId() {
 }
 
 async function postJson(url, payload) {
-  const response = await fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(payload),
-    keepalive: true,
-    mode: "cors",
-  });
+  const controller = new AbortController();
+  const timeout = window.setTimeout(() => controller.abort(), 15000);
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+      keepalive: true,
+      mode: "cors",
+      signal: controller.signal,
+    });
 
-  const body = await response.json().catch(() => ({}));
-  if (!response.ok) {
-    throw new Error(body.message || "Request failed");
+    const body = await response.json().catch(() => ({}));
+    if (!response.ok) {
+      throw new Error(body.message || "Request failed");
+    }
+
+    return body;
+  } finally {
+    window.clearTimeout(timeout);
   }
-
-  return body;
 }
 
 function setFormStatus(message, tone) {
@@ -100,6 +109,56 @@ function setFormStatus(message, tone) {
 
   status.textContent = message;
   status.dataset.tone = tone;
+}
+
+function resetFieldErrors() {
+  if (!form) {
+    return;
+  }
+
+  form.querySelectorAll("input, select, textarea").forEach((field) => {
+    field.removeAttribute("aria-invalid");
+  });
+}
+
+function markInvalid(field) {
+  field?.setAttribute("aria-invalid", "true");
+}
+
+function validateEstimateForm(data) {
+  const nameField = document.querySelector("#name");
+  const phoneField = document.querySelector("#phone");
+  const emailField = document.querySelector("#email");
+  const detailsField = document.querySelector("#details");
+  const phoneDigits = String(data.get("phone") || "").replace(/\D/g, "");
+  const email = String(data.get("email") || "").trim();
+  const details = String(data.get("details") || "").trim();
+
+  resetFieldErrors();
+
+  if (String(data.get("name") || "").trim().length < 2) {
+    markInvalid(nameField);
+    nameField?.focus();
+    throw new Error("Please enter your name so Midwest knows who to contact.");
+  }
+
+  if (phoneDigits.length < 10) {
+    markInvalid(phoneField);
+    phoneField?.focus();
+    throw new Error("Please enter a valid phone number with at least 10 digits.");
+  }
+
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    markInvalid(emailField);
+    emailField?.focus();
+    throw new Error("Please enter a valid email address so we can follow up on your request.");
+  }
+
+  if (details.length < 12) {
+    markInvalid(detailsField);
+    detailsField?.focus();
+    throw new Error("Please add a few more details about the dock, lift, shoreline, or service you need.");
+  }
 }
 
 function populateFaqs(entries) {
@@ -170,9 +229,20 @@ if (form) {
       submit.textContent = "Sending...";
     }
 
+    const data = new FormData(form);
+    try {
+      validateEstimateForm(data);
+    } catch (error) {
+      if (submit) {
+        submit.disabled = false;
+        submit.textContent = defaultLabel;
+      }
+      setFormStatus(error instanceof Error ? error.message : "Please review the form and try again.", "error");
+      return;
+    }
+
     setFormStatus("Sending your request to the Midwest office...", "info");
 
-    const data = new FormData(form);
     const payload = {
       full_name: String(data.get("name") || "").trim(),
       primary_phone: String(data.get("phone") || "").trim(),
@@ -193,9 +263,13 @@ if (form) {
     try {
       await postJson(SALES_INQUIRY_ENDPOINT, payload);
       form.reset();
+      resetFieldErrors();
       setFormStatus("Your estimate request was sent. Midwest can now review it in the office dashboard.", "success");
-    } catch (_error) {
-      setFormStatus("We couldn't send your request right now. Please call 920-319-3625 or email info@midwestdockandlift.com.", "error");
+    } catch (error) {
+      const message = error instanceof Error
+        ? error.message
+        : "We couldn't send your request right now. Please call 920-319-3625 or email info@midwestdockandlift.com.";
+      setFormStatus(message.toLowerCase().includes("abort") ? "The request timed out. Please try again or call 920-319-3625." : message, "error");
     } finally {
       if (submit) {
         submit.disabled = false;

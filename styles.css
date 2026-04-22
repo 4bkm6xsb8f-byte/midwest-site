@@ -306,6 +306,7 @@ a:hover {
 
 .credibility-grid strong {
   display: block;
+  margin-bottom: 0.4rem;
   color: var(--navy);
   font-family: "Manrope", "Segoe UI", sans-serif;
   font-size: 1.1rem;
@@ -386,6 +387,10 @@ a:hover {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
+.service-grid {
+  gap: 0.78rem;
+}
+
 .testimonial-grid,
 .faq-grid,
 .link-grid {
@@ -438,6 +443,30 @@ a:hover {
 .quote-card {
   display: grid;
   gap: 0.45rem;
+}
+
+.photo-card {
+  gap: 0.22rem;
+}
+
+.gallery-card {
+  padding: 0.95rem;
+}
+
+.service-card {
+  gap: 0.28rem;
+  padding: 1rem;
+}
+
+.gallery-card h3 {
+  line-height: 1.12;
+  margin-bottom: 0.1rem;
+}
+
+.gallery-card p {
+  margin-top: 0;
+  line-height: 1.45;
+  font-size: 0.96rem;
 }
 
 .text-link {
@@ -623,7 +652,34 @@ a:hover {
   width: 100%;
   aspect-ratio: 4 / 3;
   object-fit: cover;
+  object-position: center center;
   border-radius: 18px;
+  background: #dbe5ee;
+  margin-bottom: 0.4rem;
+}
+
+.gallery-card:nth-child(1) img {
+  object-position: center 56%;
+}
+
+.gallery-card:nth-child(2) img {
+  object-position: center 62%;
+}
+
+.gallery-card:nth-child(3) img {
+  object-position: center 58%;
+}
+
+.gallery-card:nth-child(4) img {
+  object-position: center 52%;
+}
+
+.gallery-card:nth-child(5) img {
+  object-position: center 48%;
+}
+
+.gallery-card:nth-child(6) img {
+  object-position: center 54%;
 }
 
 .article-card {
@@ -711,6 +767,13 @@ textarea:focus {
 
 .form-status[data-tone="error"] {
   color: #a33434;
+}
+
+input[aria-invalid="true"],
+select[aria-invalid="true"],
+textarea[aria-invalid="true"] {
+  border-color: #b63c3c;
+  outline: 2px solid rgba(182, 60, 60, 0.18);
 }
 
 .contact-actions {
