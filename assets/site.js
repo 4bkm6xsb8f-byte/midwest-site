@@ -2,11 +2,66 @@ const DASHBOARD_URL = "https://app.midwestdockandlift.com";
 const PAGE_VIEW_ENDPOINT = `${DASHBOARD_URL}/api/analytics/page-view`;
 const SALES_INQUIRY_ENDPOINT = `${DASHBOARD_URL}/api/public/sales-inquiries`;
 const FAQ_ENDPOINT = `${DASHBOARD_URL}/api/public/faqs`;
+const FAVICON_VERSION = "20260422";
 const form = document.querySelector("#estimate-form");
 
 function pathPrefix() {
   const path = window.location.pathname;
   return /\/(guides|services|areas)\//.test(path) ? "../" : "";
+}
+
+function ensureFavicons() {
+  const prefix = pathPrefix();
+  const head = document.head;
+  if (!head) {
+    return;
+  }
+
+  const iconSpecs = [
+    {
+      rel: "icon",
+      type: "image/svg+xml",
+      href: `${prefix}assets/images/midwest-icon.svg?v=${FAVICON_VERSION}`,
+    },
+    {
+      rel: "icon",
+      type: "image/png",
+      sizes: "32x32",
+      href: `${prefix}assets/images/favicon-32x32.png?v=${FAVICON_VERSION}`,
+    },
+    {
+      rel: "shortcut icon",
+      href: `${prefix}favicon.ico?v=${FAVICON_VERSION}`,
+    },
+  ];
+
+  iconSpecs.forEach((spec) => {
+    const selector = spec.type
+      ? `link[rel="${spec.rel}"][type="${spec.type}"]`
+      : `link[rel="${spec.rel}"]`;
+    let link = head.querySelector(selector);
+    if (!link) {
+      link = document.createElement("link");
+      link.rel = spec.rel;
+      if (spec.type) {
+        link.type = spec.type;
+      }
+      head.appendChild(link);
+    }
+
+    if (spec.sizes) {
+      link.sizes = spec.sizes;
+    }
+    link.href = spec.href;
+  });
+
+  let theme = head.querySelector('meta[name="theme-color"]');
+  if (!theme) {
+    theme = document.createElement("meta");
+    theme.name = "theme-color";
+    head.appendChild(theme);
+  }
+  theme.content = "#17324d";
 }
 
 function ensureStaffNavLink() {
@@ -129,9 +184,11 @@ function validateEstimateForm(data) {
   const nameField = document.querySelector("#name");
   const phoneField = document.querySelector("#phone");
   const emailField = document.querySelector("#email");
+  const serviceField = document.querySelector("#service");
   const detailsField = document.querySelector("#details");
   const phoneDigits = String(data.get("phone") || "").replace(/\D/g, "");
   const email = String(data.get("email") || "").trim();
+  const service = String(data.get("service") || "").trim();
   const details = String(data.get("details") || "").trim();
 
   resetFieldErrors();
@@ -152,6 +209,12 @@ function validateEstimateForm(data) {
     markInvalid(emailField);
     emailField?.focus();
     throw new Error("Please enter a valid email address so we can follow up on your request.");
+  }
+
+  if (!service) {
+    markInvalid(serviceField);
+    serviceField?.focus();
+    throw new Error("Please choose the service you need so Midwest can route your request correctly.");
   }
 
   if (details.length < 12) {
@@ -264,7 +327,7 @@ if (form) {
       await postJson(SALES_INQUIRY_ENDPOINT, payload);
       form.reset();
       resetFieldErrors();
-      setFormStatus("Your estimate request was sent. Midwest can now review it in the office dashboard.", "success");
+      setFormStatus("Your estimate request was sent successfully. Midwest can now review it in the office dashboard.", "success");
     } catch (error) {
       const message = error instanceof Error
         ? error.message
@@ -279,6 +342,7 @@ if (form) {
   });
 }
 
+ensureFavicons();
 ensureStaffNavLink();
 ensureFooter();
 updateCurrentYear();
