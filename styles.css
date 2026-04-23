@@ -146,6 +146,19 @@ a:hover {
   color: var(--steel) !important;
 }
 
+.social-link-icon-only {
+  justify-content: center;
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 999px;
+  background: rgba(23, 50, 77, 0.06);
+  border: 1px solid rgba(23, 50, 77, 0.12);
+}
+
+.social-link-icon-only span {
+  display: none;
+}
+
 .nav-cta,
 .button {
   display: inline-flex;
@@ -672,40 +685,98 @@ a:hover {
   box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.88);
 }
 
-.lake-marker-mountain {
-  top: 26%;
-  left: 45%;
+.map-embed-shell-marked .lake-marker {
+  width: 0.85rem;
+  height: 0.85rem;
+  padding: 0;
+  background: transparent;
+  box-shadow: none;
+  overflow: visible;
 }
 
-.lake-marker-crivitz {
-  top: 20%;
-  left: 55%;
+.map-embed-shell-marked .lake-marker::before {
+  width: 0.85rem;
+  height: 0.85rem;
 }
 
-.lake-marker-chute {
-  top: 29%;
-  left: 51%;
+.map-embed-shell-marked .lake-marker:hover::after {
+  content: attr(title);
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 0.35rem);
+  transform: translateX(-50%);
+  white-space: nowrap;
+  padding: 0.18rem 0.4rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.96);
+  color: var(--navy);
+  font-family: "Manrope", "Segoe UI", sans-serif;
+  font-size: 0.66rem;
+  font-weight: 800;
+  box-shadow: 0 10px 26px rgba(23, 50, 77, 0.16);
 }
 
-.lake-marker-legend {
-  top: 45%;
-  left: 56%;
+.map-embed-shell-marked .lake-marker-crivitz-label,
+.map-embed-shell-marked .lake-marker-mountain-label,
+.map-embed-shell-marked .lake-marker-legend-label,
+.map-embed-shell-marked .lake-marker-shawano-label {
+  width: auto;
+  height: auto;
+  padding: 0.18rem 0.38rem;
+  background: rgba(255, 255, 255, 0.94);
+  font-size: 0.66rem;
+  font-weight: 800;
+  box-shadow: 0 10px 26px rgba(23, 50, 77, 0.16);
 }
 
-.lake-marker-noquebay {
-  top: 26%;
-  left: 67%;
+.map-embed-shell-marked .lake-marker-crivitz-label::before,
+.map-embed-shell-marked .lake-marker-mountain-label::before,
+.map-embed-shell-marked .lake-marker-legend-label::before,
+.map-embed-shell-marked .lake-marker-shawano-label::before {
+  width: 0.55rem;
+  height: 0.55rem;
 }
 
-.lake-marker-white-potato {
-  top: 14%;
-  left: 39%;
-}
-
-.lake-marker-shawano {
-  top: 64%;
-  left: 31%;
-}
+.lake-marker-anderson { top: 34%; left: 62%; }
+.lake-marker-archibald { top: 39%; left: 58%; }
+.lake-marker-barnes { top: 22%; left: 39%; }
+.lake-marker-bear { top: 31%; left: 44%; }
+.lake-marker-bonita { top: 30%; left: 65%; }
+.lake-marker-boot { top: 18%; left: 43%; }
+.lake-marker-boulder { top: 23%; left: 50%; }
+.lake-marker-chain { top: 26%; left: 60%; }
+.lake-marker-chute { top: 30%; left: 52%; }
+.lake-marker-crooked { top: 19%; left: 37%; }
+.lake-marker-eagle { top: 25%; left: 57%; }
+.lake-marker-frog { top: 36%; left: 56%; }
+.lake-marker-grindle { top: 16%; left: 48%; }
+.lake-marker-haegen { top: 27%; left: 47%; }
+.lake-marker-half-moon { top: 21%; left: 46%; }
+.lake-marker-high-falls { top: 12%; left: 56%; }
+.lake-marker-kelly { top: 43%; left: 55%; }
+.lake-marker-noquebay { top: 26%; left: 68%; }
+.lake-marker-left-foot { top: 14%; left: 51%; }
+.lake-marker-legend { top: 45%; left: 57%; }
+.lake-marker-maiden { top: 15%; left: 58%; }
+.lake-marker-mary { top: 11%; left: 62%; }
+.lake-marker-moody { top: 37%; left: 63%; }
+.lake-marker-morgan { top: 28%; left: 34%; }
+.lake-marker-moshawquil { top: 40%; left: 50%; }
+.lake-marker-mountain { top: 27%; left: 45%; }
+.lake-marker-newton { top: 44%; left: 48%; }
+.lake-marker-ranch { top: 10%; left: 45%; }
+.lake-marker-rost { top: 17%; left: 60%; }
+.lake-marker-sandstone { top: 16%; left: 54%; }
+.lake-marker-shawano { top: 64%; left: 31%; }
+.lake-marker-shay { top: 52%; left: 40%; }
+.lake-marker-thunder { top: 20%; left: 53%; }
+.lake-marker-ucil { top: 32%; left: 67%; }
+.lake-marker-white { top: 54%; left: 36%; }
+.lake-marker-white-potato { top: 14%; left: 39%; }
+.lake-marker-crivitz-label { top: 18%; left: 55%; }
+.lake-marker-mountain-label { top: 24%; left: 43%; }
+.lake-marker-legend-label { top: 43%; left: 58%; }
+.lake-marker-shawano-label { top: 62%; left: 29%; }
 
 .brand-link {
   text-decoration: none;

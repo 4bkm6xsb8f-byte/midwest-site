@@ -84,11 +84,11 @@ function ensureStaffNavLink() {
       facebook.target = "_blank";
       facebook.rel = "noreferrer";
       facebook.setAttribute("aria-label", "Midwest Dock and Lift on Facebook");
+      facebook.classList.add("social-link-icon-only");
       facebook.innerHTML = `
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
           <path d="M13.5 22v-8.2h2.8l.4-3.2h-3.2V8.5c0-.9.3-1.6 1.7-1.6H17V4.1c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.4v2.2H7.5v3.2h2.8V22h3.2z"></path>
         </svg>
-        <span>Facebook</span>
       `;
 
       const staff = nav.querySelector(".staff-link, [data-staff-link]");
@@ -129,11 +129,10 @@ function ensureFooter() {
     <div class="wrap footer-inner">
       <p>&copy; <span data-current-year></span> Midwest Equipment Dock and Lift Services. All rights reserved.</p>
       <div class="footer-links">
-        <a class="social-link social-link-facebook" href="${FACEBOOK_URL}" target="_blank" rel="noreferrer" aria-label="Midwest Dock and Lift on Facebook">
+        <a class="social-link social-link-facebook social-link-icon-only" href="${FACEBOOK_URL}" target="_blank" rel="noreferrer" aria-label="Midwest Dock and Lift on Facebook">
           <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
             <path d="M13.5 22v-8.2h2.8l.4-3.2h-3.2V8.5c0-.9.3-1.6 1.7-1.6H17V4.1c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.4v2.2H7.5v3.2h2.8V22h3.2z"></path>
           </svg>
-          <span>Facebook</span>
         </a>
         <a href="${DASHBOARD_URL}" target="_blank" rel="noreferrer">Staff Login</a>
         <a href="${prefix}index.html#quote">Request Estimate</a>
