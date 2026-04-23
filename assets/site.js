@@ -2,8 +2,18 @@ const DASHBOARD_URL = "https://app.midwestdockandlift.com";
 const PAGE_VIEW_ENDPOINT = `${DASHBOARD_URL}/api/analytics/page-view`;
 const SALES_INQUIRY_ENDPOINT = `${DASHBOARD_URL}/api/public/sales-inquiries`;
 const FAQ_ENDPOINT = `${DASHBOARD_URL}/api/public/faqs`;
+const FACEBOOK_URL = "https://www.facebook.com/midwestdockandlift";
 const FAVICON_VERSION = "20260422";
 const form = document.querySelector("#estimate-form");
+const MAX_INQUIRY_PHOTOS = 5;
+const MAX_INQUIRY_PHOTO_BYTES = 12 * 1024 * 1024;
+const ALLOWED_INQUIRY_PHOTO_TYPES = new Set([
+  "image/jpeg",
+  "image/png",
+  "image/webp",
+  "image/heic",
+  "image/heif",
+]);
 
 function pathPrefix() {
   const path = window.location.pathname;
@@ -66,6 +76,26 @@ function ensureFavicons() {
 
 function ensureStaffNavLink() {
   document.querySelectorAll(".site-nav").forEach((nav) => {
+    if (!nav.querySelector(".social-link-facebook, [data-facebook-link]")) {
+      const facebook = document.createElement("a");
+      facebook.href = FACEBOOK_URL;
+      facebook.className = "social-link social-link-facebook";
+      facebook.dataset.facebookLink = "true";
+      facebook.target = "_blank";
+      facebook.rel = "noreferrer";
+      facebook.setAttribute("aria-label", "Midwest Dock and Lift on Facebook");
+      facebook.innerHTML = `
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M13.5 22v-8.2h2.8l.4-3.2h-3.2V8.5c0-.9.3-1.6 1.7-1.6H17V4.1c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.4v2.2H7.5v3.2h2.8V22h3.2z"></path>
+        </svg>
+        <span>Facebook</span>
+      `;
+
+      const staff = nav.querySelector(".staff-link, [data-staff-link]");
+      const cta = nav.querySelector(".nav-cta");
+      nav.insertBefore(facebook, staff || cta || null);
+    }
+
     if (nav.querySelector(".staff-link, [data-staff-link]")) {
       return;
     }
@@ -99,6 +129,12 @@ function ensureFooter() {
     <div class="wrap footer-inner">
       <p>&copy; <span data-current-year></span> Midwest Equipment Dock and Lift Services. All rights reserved.</p>
       <div class="footer-links">
+        <a class="social-link social-link-facebook" href="${FACEBOOK_URL}" target="_blank" rel="noreferrer" aria-label="Midwest Dock and Lift on Facebook">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M13.5 22v-8.2h2.8l.4-3.2h-3.2V8.5c0-.9.3-1.6 1.7-1.6H17V4.1c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.4v2.2H7.5v3.2h2.8V22h3.2z"></path>
+          </svg>
+          <span>Facebook</span>
+        </a>
         <a href="${DASHBOARD_URL}" target="_blank" rel="noreferrer">Staff Login</a>
         <a href="${prefix}index.html#quote">Request Estimate</a>
         <a href="${prefix}index.html#resources">Seasonal Guides</a>
@@ -156,6 +192,28 @@ async function postJson(url, payload) {
   }
 }
 
+async function postFormData(url, payload) {
+  const controller = new AbortController();
+  const timeout = window.setTimeout(() => controller.abort(), 20000);
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      body: payload,
+      mode: "cors",
+      signal: controller.signal,
+    });
+
+    const body = await response.json().catch(() => ({}));
+    if (!response.ok) {
+      throw new Error(body.message || "Request failed");
+    }
+
+    return body;
+  } finally {
+    window.clearTimeout(timeout);
+  }
+}
+
 function setFormStatus(message, tone) {
   const status = document.querySelector("[data-form-status]");
   if (!status) {
@@ -186,10 +244,12 @@ function validateEstimateForm(data) {
   const emailField = document.querySelector("#email");
   const serviceField = document.querySelector("#service");
   const detailsField = document.querySelector("#details");
+  const photosField = document.querySelector("#photos");
   const phoneDigits = String(data.get("phone") || "").replace(/\D/g, "");
   const email = String(data.get("email") || "").trim();
   const service = String(data.get("service") || "").trim();
   const details = String(data.get("details") || "").trim();
+  const photos = Array.from(data.getAll("photos[]")).filter((file) => file instanceof File && file.name !== "");
 
   resetFieldErrors();
 
@@ -221,6 +281,26 @@ function validateEstimateForm(data) {
     markInvalid(detailsField);
     detailsField?.focus();
     throw new Error("Please add a few more details about the dock, lift, shoreline, or service you need.");
+  }
+
+  if (photos.length > MAX_INQUIRY_PHOTOS) {
+    markInvalid(photosField);
+    photosField?.focus();
+    throw new Error(`Please upload no more than ${MAX_INQUIRY_PHOTOS} photos.`);
+  }
+
+  for (const photo of photos) {
+    if (!ALLOWED_INQUIRY_PHOTO_TYPES.has(photo.type)) {
+      markInvalid(photosField);
+      photosField?.focus();
+      throw new Error("Photos must be JPG, PNG, WEBP, HEIC, or HEIF files.");
+    }
+
+    if (photo.size > MAX_INQUIRY_PHOTO_BYTES) {
+      markInvalid(photosField);
+      photosField?.focus();
+      throw new Error("Each uploaded photo must be 12 MB or smaller.");
+    }
   }
 }
 
@@ -306,28 +386,32 @@ if (form) {
 
     setFormStatus("Sending your request to the Midwest office...", "info");
 
-    const payload = {
-      full_name: String(data.get("name") || "").trim(),
-      primary_phone: String(data.get("phone") || "").trim(),
-      email: String(data.get("email") || "").trim(),
-      lake_name: String(data.get("lake") || "").trim(),
-      city: String(data.get("city") || "").trim(),
-      service_address: String(data.get("address") || "").trim(),
-      service_type: String(data.get("service") || "").trim(),
-      preferred_timing: String(data.get("timing") || "").trim(),
-      project_details: String(data.get("details") || "").trim(),
-      site_host: window.location.hostname,
-      page_url: window.location.href,
-      page_path: window.location.pathname,
-      referrer: document.referrer || "",
-      session_id: getSessionId(),
-    };
+    const payload = new FormData();
+    payload.set("full_name", String(data.get("name") || "").trim());
+    payload.set("primary_phone", String(data.get("phone") || "").trim());
+    payload.set("email", String(data.get("email") || "").trim());
+    payload.set("lake_name", String(data.get("lake") || "").trim());
+    payload.set("city", String(data.get("city") || "").trim());
+    payload.set("service_address", String(data.get("address") || "").trim());
+    payload.set("service_type", String(data.get("service") || "").trim());
+    payload.set("preferred_timing", String(data.get("timing") || "").trim());
+    payload.set("project_details", String(data.get("details") || "").trim());
+    payload.set("site_host", window.location.hostname);
+    payload.set("page_url", window.location.href);
+    payload.set("page_path", window.location.pathname);
+    payload.set("referrer", document.referrer || "");
+    payload.set("session_id", getSessionId());
+
+    Array.from(data.getAll("photos[]"))
+      .filter((file) => file instanceof File && file.name !== "")
+      .slice(0, MAX_INQUIRY_PHOTOS)
+      .forEach((file) => payload.append("photos[]", file));
 
     try {
-      await postJson(SALES_INQUIRY_ENDPOINT, payload);
+      await postFormData(SALES_INQUIRY_ENDPOINT, payload);
       form.reset();
       resetFieldErrors();
-      setFormStatus("Your estimate request was sent successfully. Midwest can now review it in the office dashboard.", "success");
+      setFormStatus("Your estimate request was sent successfully. Midwest can now review it, along with any uploaded photos, in the office dashboard.", "success");
     } catch (error) {
       const message = error instanceof Error
         ? error.message
