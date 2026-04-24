@@ -86,6 +86,7 @@ a:hover {
   grid-template-columns: auto 1fr;
   align-items: center;
   padding: 0.6rem 0;
+  position: relative;
 }
 
 .brand {
@@ -124,6 +125,58 @@ a:hover {
   font-size: 0.9rem;
   font-weight: 700;
   white-space: nowrap;
+}
+
+.mobile-nav-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 2.9rem;
+  height: 2.9rem;
+  margin-left: auto;
+  border: 1px solid rgba(23, 50, 77, 0.12);
+  border-radius: 999px;
+  background: rgba(23, 50, 77, 0.06);
+  color: var(--navy);
+  cursor: pointer;
+}
+
+.mobile-nav-toggle-bar,
+.mobile-nav-toggle::before,
+.mobile-nav-toggle::after {
+  content: "";
+  display: block;
+  width: 1.1rem;
+  height: 2px;
+  border-radius: 999px;
+  background: currentColor;
+  transition: transform 180ms ease, opacity 180ms ease;
+}
+
+.mobile-nav-toggle-bar {
+  position: relative;
+}
+
+.mobile-nav-toggle::before {
+  position: absolute;
+  transform: translateY(-0.34rem);
+}
+
+.mobile-nav-toggle::after {
+  position: absolute;
+  transform: translateY(0.34rem);
+}
+
+.mobile-nav-toggle[aria-expanded="true"] .mobile-nav-toggle-bar {
+  opacity: 0;
+}
+
+.mobile-nav-toggle[aria-expanded="true"]::before {
+  transform: rotate(45deg);
+}
+
+.mobile-nav-toggle[aria-expanded="true"]::after {
+  transform: rotate(-45deg);
 }
 
 .staff-link {
@@ -1115,20 +1168,50 @@ textarea[aria-invalid="true"] {
 
 @media (max-width: 760px) {
   .header-inner {
-    grid-template-columns: 1fr;
-  }
-
-  .site-nav {
-    flex-wrap: wrap;
-    justify-content: flex-start;
-  }
-
-  .site-nav {
-    justify-content: flex-start;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
   }
 
   .brand-logo {
     width: min(18rem, 62vw);
+  }
+
+  .mobile-nav-toggle {
+    display: inline-flex;
+    position: relative;
+    z-index: 32;
+  }
+
+  .site-nav {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    left: 0;
+    right: 0;
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.55rem;
+    padding: 1rem;
+    border-radius: 22px;
+    background: rgba(255, 255, 255, 0.98);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-strong);
+  }
+
+  .site-nav.is-open {
+    display: flex;
+  }
+
+  .site-nav a,
+  .site-nav .nav-cta,
+  .site-nav .social-link-icon-only {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .site-nav .social-link-icon-only {
+    width: 100%;
+    height: 2.75rem;
   }
 
   .hero {

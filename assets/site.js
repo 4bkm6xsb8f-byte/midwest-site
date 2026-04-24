@@ -145,6 +145,85 @@ function ensureFooter() {
   document.body.appendChild(footer);
 }
 
+function initMobileNav() {
+  document.querySelectorAll(".site-header").forEach((header, index) => {
+    const nav = header.querySelector(".site-nav");
+    const headerInner = header.querySelector(".header-inner");
+    if (!(nav instanceof HTMLElement) || !(headerInner instanceof HTMLElement)) {
+      return;
+    }
+
+    if (!nav.id) {
+      nav.id = `site-nav-${index + 1}`;
+    }
+
+    let toggle = header.querySelector(".mobile-nav-toggle");
+    if (!(toggle instanceof HTMLButtonElement)) {
+      toggle = document.createElement("button");
+      toggle.type = "button";
+      toggle.className = "mobile-nav-toggle";
+      toggle.setAttribute("aria-label", "Open site menu");
+      toggle.setAttribute("aria-expanded", "false");
+      toggle.setAttribute("aria-controls", nav.id);
+      toggle.innerHTML = '<span class="mobile-nav-toggle-bar" aria-hidden="true"></span>';
+      headerInner.insertBefore(toggle, nav);
+    }
+
+    const closeMenu = () => {
+      nav.classList.remove("is-open");
+      toggle.setAttribute("aria-expanded", "false");
+      toggle.setAttribute("aria-label", "Open site menu");
+    };
+
+    const openMenu = () => {
+      nav.classList.add("is-open");
+      toggle.setAttribute("aria-expanded", "true");
+      toggle.setAttribute("aria-label", "Close site menu");
+    };
+
+    toggle.addEventListener("click", () => {
+      if (nav.classList.contains("is-open")) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
+    });
+
+    nav.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        if (window.innerWidth <= 760) {
+          closeMenu();
+        }
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (window.innerWidth > 760) {
+        return;
+      }
+      const target = event.target;
+      if (!(target instanceof Node)) {
+        return;
+      }
+      if (!header.contains(target)) {
+        closeMenu();
+      }
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        closeMenu();
+      }
+    });
+
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 760) {
+        closeMenu();
+      }
+    });
+  });
+}
+
 function updateCurrentYear() {
   const year = new Date().getFullYear();
   document.querySelectorAll("[data-current-year]").forEach((node) => {
@@ -427,6 +506,7 @@ if (form) {
 ensureFavicons();
 ensureStaffNavLink();
 ensureFooter();
+initMobileNav();
 updateCurrentYear();
 trackPageView();
 loadFaqs();
