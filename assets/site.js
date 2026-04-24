@@ -91,9 +91,8 @@ function ensureStaffNavLink() {
         </svg>
       `;
 
-      const staff = nav.querySelector(".staff-link, [data-staff-link]");
       const cta = nav.querySelector(".nav-cta");
-      nav.insertBefore(facebook, staff || cta || null);
+      nav.insertBefore(facebook, cta || null);
     }
 
     if (nav.querySelector(".staff-link, [data-staff-link]")) {
@@ -129,16 +128,16 @@ function ensureFooter() {
     <div class="wrap footer-inner">
       <p>&copy; <span data-current-year></span> Midwest Equipment Dock and Lift Services. All rights reserved.</p>
       <div class="footer-links">
-        <a class="social-link social-link-facebook social-link-icon-only" href="${FACEBOOK_URL}" target="_blank" rel="noreferrer" aria-label="Midwest Dock and Lift on Facebook">
-          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-            <path d="M13.5 22v-8.2h2.8l.4-3.2h-3.2V8.5c0-.9.3-1.6 1.7-1.6H17V4.1c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.4v2.2H7.5v3.2h2.8V22h3.2z"></path>
-          </svg>
-        </a>
         <a href="${DASHBOARD_URL}" target="_blank" rel="noreferrer">Staff Login</a>
         <a href="${prefix}index.html#quote">Request Estimate</a>
         <a href="${prefix}index.html#resources">Seasonal Guides</a>
         <a href="${prefix}support.html">Support</a>
         <a href="${prefix}privacy.html">Privacy</a>
+        <a class="social-link social-link-facebook social-link-icon-only" href="${FACEBOOK_URL}" target="_blank" rel="noreferrer" aria-label="Midwest Dock and Lift on Facebook">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M13.5 22v-8.2h2.8l.4-3.2h-3.2V8.5c0-.9.3-1.6 1.7-1.6H17V4.1c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.4v2.2H7.5v3.2h2.8V22h3.2z"></path>
+          </svg>
+        </a>
       </div>
     </div>
   `;
