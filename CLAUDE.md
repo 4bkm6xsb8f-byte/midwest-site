@@ -43,7 +43,7 @@ A single script loaded on all pages. On load it runs a fixed sequence (bottom of
 - Below-the-fold `<img>`s use `loading="lazy" decoding="async"`; the above-fold `.brand-logo` is intentionally left eager (don't lazy-load it or other LCP images).
 
 ### Favicon cache-busting
-Favicon/icon links use a `?v=YYYYMMDD` query string. The version is `FAVICON_VERSION` in `site.js` (used by the injected links) **and** hardcoded in the static `<link>` tags in every HTML `<head>`. All pages are currently unified at `v=20260601`. When you replace an icon, bump `FAVICON_VERSION` and every static `?v=` tag together so browsers refetch (a repo-wide find/replace of the old version string is the reliable way). Each page carries the same four static icon links — `svg`, `png 32x32`, `apple-touch-icon`, `shortcut icon`.
+Favicon/icon links use a `?v=YYYYMMDD` query string. The version is `FAVICON_VERSION` in `site.js` (used by the injected links) **and** hardcoded in the static `<link>` tags in every HTML `<head>`. All pages are currently unified at `v=20260601a`. When you replace an icon, bump `FAVICON_VERSION` and every static `?v=` tag together so browsers refetch (a repo-wide find/replace of the old version string is the reliable way). Each page carries the same four static icon links — `svg`, `png 32x32`, `apple-touch-icon`, `shortcut icon`.
 
 ## Conventions
 
