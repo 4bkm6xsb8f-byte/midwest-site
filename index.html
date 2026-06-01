@@ -5,11 +5,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Midwest Equipment Dock and Lift Services | Dock, Lift, Shoreline, Storage, and Winterization in Northeast Wisconsin</title>
   <meta name="description" content="Family-owned dock, lift, shoreline, storage, and winterization service based in Mountain, Wisconsin and serving lake properties throughout Northeast Wisconsin.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Midwest Equipment Dock and Lift Services">
+  <meta property="og:title" content="Midwest Equipment Dock and Lift Services | Dock, Lift, Shoreline, Storage, and Winterization in Northeast Wisconsin">
+  <meta property="og:description" content="Family-owned dock, lift, shoreline, storage, and winterization service based in Mountain, Wisconsin and serving lake properties throughout Northeast Wisconsin.">
+  <meta property="og:url" content="https://www.midwestdockandlift.com/">
+  <meta property="og:image" content="https://www.midwestdockandlift.com/assets/images/header-banner.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Midwest Equipment Dock and Lift Services | Dock, Lift, Shoreline, Storage, and Winterization in Northeast Wisconsin">
+  <meta name="twitter:description" content="Family-owned dock, lift, shoreline, storage, and winterization service based in Mountain, Wisconsin and serving lake properties throughout Northeast Wisconsin.">
+  <meta name="twitter:image" content="https://www.midwestdockandlift.com/assets/images/header-banner.png">
   <meta name="theme-color" content="#17324d">
-  <link rel="icon" type="image/svg+xml" href="assets/images/midwest-icon.svg?v=20260422">
-  <link rel="icon" type="image/png" href="assets/images/favicon-32x32.png?v=20260422" sizes="32x32">
-  <link rel="shortcut icon" href="favicon.ico?v=20260422">
+  <link rel="icon" type="image/svg+xml" href="assets/images/midwest-icon.svg?v=20260601">
+  <link rel="icon" type="image/png" href="assets/images/favicon-32x32.png?v=20260601" sizes="32x32">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png?v=20260601">
+  <link rel="shortcut icon" href="favicon.ico?v=20260601">
   <link rel="preload" href="assets/images/header-banner.png" as="image">
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin="">
   <link rel="stylesheet" href="styles.css">
   <script type="application/ld+json">
   {
@@ -35,7 +51,7 @@
       "Boot Lake, Wisconsin",
       "Boulder Lake, Wisconsin",
       "Chain Lake, Wisconsin",
-      "Lake Noquebay, Wisconsin",
+      "Chute Pond, Wisconsin",
       "Crooked Lake, Wisconsin",
       "Eagle Lake, Wisconsin",
       "Frog Lake, Wisconsin",
@@ -44,6 +60,7 @@
       "Half Moon Lake, Wisconsin",
       "High Falls Flowage, Wisconsin",
       "Kelly Lake, Wisconsin",
+      "Lake Noquebay, Wisconsin",
       "Left Foot Lake, Wisconsin",
       "Legend Lake, Wisconsin",
       "Maiden Lake, Wisconsin",
@@ -61,7 +78,6 @@
       "Ucil Lake, Wisconsin",
       "White Lake, Wisconsin",
       "White Potato Lake, Wisconsin",
-      "Chute Pond, Wisconsin",
       "Northeast Wisconsin"
     ]
   }
@@ -198,43 +214,8 @@
           <p class="eyebrow">Service Area</p>
           <h2>Based in Mountain, Wisconsin. Serving the lakes where local experience matters.</h2>
           <p class="section-lede">Midwest serves lake communities across Northeast Wisconsin where dock and lift timing, shoreline conditions, storm damage, and changing water levels make experienced local help worth calling first.</p>
-          <div class="lake-grid">
-            <span>Anderson Lake</span>
-            <span>Archibald Lake</span>
-            <span>Barnes Lake</span>
-            <span>Bear Lake</span>
-            <span>Bonita Pond</span>
-            <span>Boot Lake</span>
-            <span>Boulder Lake</span>
-            <span>Chain Lake</span>
-            <span>Chute Pond</span>
-            <span>Crooked Lake</span>
-            <span>Eagle Lake</span>
-            <span>Frog Lake</span>
-            <span>Grindle Lake</span>
-            <span>Haegen Lake</span>
-            <span>Half Moon Lake</span>
-            <span>High Falls Flowage</span>
-            <span>Kelly Lake</span>
-            <span>Lake Noquebay</span>
-            <span>Left Foot Lake</span>
-            <span>Legend Lake</span>
-            <span>Maiden Lake</span>
-            <span>Mary Lake</span>
-            <span>Moody Lake</span>
-            <span>Morgan Lake</span>
-            <span>Moshawquil Lake</span>
-            <span>Newton Lake</span>
-            <span>Ranch Lake</span>
-            <span>Rost Lake</span>
-            <span>Sandstone Flowage</span>
-            <span>Shawano Lake</span>
-            <span>Shay Lake</span>
-            <span>Thunder Lake</span>
-            <span>Ucil Lake</span>
-            <span>White Lake</span>
-            <span>White Potato Lake</span>
-          </div>
+          <!-- Populated from SERVICE_AREA_LOCATIONS in assets/site.js (single source of truth). -->
+          <div class="lake-grid" data-lake-grid></div>
           <div class="link-grid">
             <a class="mini-link-card" href="areas/mountain-wi.html"><strong>Mountain, WI</strong><span>Local base and nearby lake-property service.</span></a>
             <a class="mini-link-card" href="areas/crivitz-wi.html"><strong>Crivitz, WI</strong><span>Dock, lift, storage, and shoreline support near Crivitz.</span></a>
@@ -246,60 +227,17 @@
         </div>
         <div class="map-card map-overview">
           <p class="eyebrow">Bodies of Water Served</p>
-          <h3>Interactive Google Map</h3>
-          <p class="map-note">Zoom and move around the region to see where Midwest works across Northeast Wisconsin. Hover the lake markers to identify the waters Midwest serves most often.</p>
-          <div class="map-embed-shell map-embed-shell-marked">
-            <iframe
-              title="Google Map of Midwest Equipment Dock and Lift Services coverage in Northeast Wisconsin"
-              src="https://www.google.com/maps?q=Mountain%2C%20Wisconsin&z=9&output=embed"
-              loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade"
-              allowfullscreen>
-            </iframe>
-            <div class="map-marker-layer" aria-hidden="true">
-              <span class="lake-marker lake-marker-anderson" title="Anderson Lake"></span>
-              <span class="lake-marker lake-marker-archibald" title="Archibald Lake"></span>
-              <span class="lake-marker lake-marker-barnes" title="Barnes Lake"></span>
-              <span class="lake-marker lake-marker-bear" title="Bear Lake"></span>
-              <span class="lake-marker lake-marker-bonita" title="Bonita Pond"></span>
-              <span class="lake-marker lake-marker-boot" title="Boot Lake"></span>
-              <span class="lake-marker lake-marker-boulder" title="Boulder Lake"></span>
-              <span class="lake-marker lake-marker-chain" title="Chain Lake"></span>
-              <span class="lake-marker lake-marker-chute" title="Chute Pond"></span>
-              <span class="lake-marker lake-marker-crooked" title="Crooked Lake"></span>
-              <span class="lake-marker lake-marker-eagle" title="Eagle Lake"></span>
-              <span class="lake-marker lake-marker-frog" title="Frog Lake"></span>
-              <span class="lake-marker lake-marker-grindle" title="Grindle Lake"></span>
-              <span class="lake-marker lake-marker-haegen" title="Haegen Lake"></span>
-              <span class="lake-marker lake-marker-half-moon" title="Half Moon Lake"></span>
-              <span class="lake-marker lake-marker-high-falls" title="High Falls Flowage"></span>
-              <span class="lake-marker lake-marker-kelly" title="Kelly Lake"></span>
-              <span class="lake-marker lake-marker-noquebay" title="Lake Noquebay"></span>
-              <span class="lake-marker lake-marker-left-foot" title="Left Foot Lake"></span>
-              <span class="lake-marker lake-marker-legend" title="Legend Lake"></span>
-              <span class="lake-marker lake-marker-maiden" title="Maiden Lake"></span>
-              <span class="lake-marker lake-marker-mary" title="Mary Lake"></span>
-              <span class="lake-marker lake-marker-moody" title="Moody Lake"></span>
-              <span class="lake-marker lake-marker-morgan" title="Morgan Lake"></span>
-              <span class="lake-marker lake-marker-moshawquil" title="Moshawquil Lake"></span>
-              <span class="lake-marker lake-marker-mountain" title="Mountain"></span>
-              <span class="lake-marker lake-marker-newton" title="Newton Lake"></span>
-              <span class="lake-marker lake-marker-ranch" title="Ranch Lake"></span>
-              <span class="lake-marker lake-marker-rost" title="Rost Lake"></span>
-              <span class="lake-marker lake-marker-sandstone" title="Sandstone Flowage"></span>
-              <span class="lake-marker lake-marker-shawano" title="Shawano Lake"></span>
-              <span class="lake-marker lake-marker-shay" title="Shay Lake"></span>
-              <span class="lake-marker lake-marker-thunder" title="Thunder Lake"></span>
-              <span class="lake-marker lake-marker-ucil" title="Ucil Lake"></span>
-              <span class="lake-marker lake-marker-white" title="White Lake"></span>
-              <span class="lake-marker lake-marker-white-potato" title="White Potato Lake"></span>
-              <span class="lake-marker lake-marker-crivitz-label">Crivitz</span>
-              <span class="lake-marker lake-marker-mountain-label">Mountain</span>
-              <span class="lake-marker lake-marker-legend-label">Legend Lake</span>
-              <span class="lake-marker lake-marker-shawano-label">Shawano Lake</span>
-            </div>
+          <h3>Interactive Service Area Map</h3>
+          <p class="map-note">Move, zoom, and tap pins to explore the lakes and local communities Midwest serves across Northeast Wisconsin.</p>
+          <div
+            id="service-area-map"
+            class="service-area-map"
+            data-map-title="Midwest Equipment Dock and Lift Services service area map"
+            aria-label="Interactive map showing lakes and communities served by Midwest Equipment Dock and Lift Services">
           </div>
-          <a class="text-link" href="https://www.google.com/maps/place/Mountain,+WI/" target="_blank" rel="noreferrer">Open the full map in Google Maps</a>
+          <noscript>
+            <p class="map-fallback">This interactive map and the served-lakes list need JavaScript to load. Midwest serves lake properties throughout Northeast Wisconsin &mdash; call <a href="tel:9203193625">920-319-3625</a> or email <a href="mailto:info@midwestdockandlift.com">info@midwestdockandlift.com</a> to confirm service for your lake.</p>
+          </noscript>
         </div>
       </div>
     </section>
@@ -356,32 +294,32 @@
         <p class="section-lede">A closer look at the dock, lift, shoreline, access, and seasonal service work Midwest handles across Northeast Wisconsin.</p>
         <div class="gallery-grid">
           <article class="gallery-card photo-card">
-            <img src="assets/images/projects/equipment-barge.jpg" alt="Midwest dock and lift service barge and truck staged at a lake property.">
+            <img loading="lazy" decoding="async" src="assets/images/projects/equipment-barge.jpg" alt="Midwest dock and lift service barge and truck staged at a lake property.">
             <h3>Field Equipment Ready To Work</h3>
             <p>Purpose-built access and equipment make difficult waterfront jobs more manageable.</p>
           </article>
           <article class="gallery-card photo-card">
-            <img src="assets/images/projects/dock-install.jpg" alt="Dock installation underway at a Northeast Wisconsin lakefront property.">
+            <img loading="lazy" decoding="async" src="assets/images/projects/dock-install.jpg" alt="Dock installation underway at a Northeast Wisconsin lakefront property.">
             <h3>Spring Dock Installation</h3>
             <p>Seasonal installs completed with shoreline fit and on-water usability in mind.</p>
           </article>
           <article class="gallery-card photo-card">
-            <img src="assets/images/projects/crew-install.jpg" alt="Crew installing dock sections in the water at a lake property.">
+            <img loading="lazy" decoding="async" src="assets/images/projects/crew-install.jpg" alt="Crew installing dock sections in the water at a lake property.">
             <h3>Hands-On Crew Service</h3>
             <p>Experienced field work matters when setup, alignment, and lake conditions all come into play.</p>
           </article>
           <article class="gallery-card photo-card">
-            <img src="assets/images/projects/shoreline-approach.jpg" alt="View from equipment approaching a shoreline installation area and home.">
+            <img loading="lazy" decoding="async" src="assets/images/projects/shoreline-approach.jpg" alt="View from equipment approaching a shoreline installation area and home.">
             <h3>Shoreline Access Planning</h3>
             <p>Not every property is simple. Midwest plans for access, approach, and fit before work begins.</p>
           </article>
           <article class="gallery-card photo-card">
-            <img src="assets/images/projects/lift-reconfiguration.jpg" alt="Lift and dock sections being reconfigured on shore by Midwest crew.">
+            <img loading="lazy" decoding="async" src="assets/images/projects/lift-reconfiguration.jpg" alt="Lift and dock sections being reconfigured on shore by Midwest crew.">
             <h3>Lift &amp; Dock Reconfiguration</h3>
             <p>When the setup no longer fits the boat or lake conditions, reconfiguration can solve the problem.</p>
           </article>
           <article class="gallery-card photo-card">
-            <img src="assets/images/projects/crew-shoreline.jpg" alt="Midwest crew preparing waterfront equipment at the shoreline.">
+            <img loading="lazy" decoding="async" src="assets/images/projects/crew-shoreline.jpg" alt="Midwest crew preparing waterfront equipment at the shoreline.">
             <h3>Seasonal Waterfront Support</h3>
             <p>From removal and storage prep to repairs and adjustments, Midwest handles more than just install day.</p>
           </article>
@@ -535,24 +473,13 @@
     </section>
   </main>
 
-  <footer class="site-footer">
-    <div class="wrap footer-inner">
-      <p>&copy; <span data-current-year></span> Midwest Equipment Dock and Lift Services. All rights reserved.</p>
-      <div class="footer-links">
-        <a href="https://app.midwestdockandlift.com" target="_blank" rel="noreferrer">Staff Login</a>
-        <a href="#quote">Request Estimate</a>
-        <a href="#resources">Seasonal Guides</a>
-        <a href="support.html">Support</a>
-        <a href="privacy.html">Privacy</a>
-        <a class="social-link social-link-facebook social-link-icon-only" href="https://www.facebook.com/midwestdockandlift" target="_blank" rel="noreferrer" aria-label="Midwest Dock and Lift on Facebook">
-          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-            <path d="M13.5 22v-8.2h2.8l.4-3.2h-3.2V8.5c0-.9.3-1.6 1.7-1.6H17V4.1c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.4v2.2H7.5v3.2h2.8V22h3.2z"></path>
-          </svg>
-        </a>
-      </div>
-    </div>
-  </footer>
+  <!-- Footer (with dynamic copyright year) is injected by ensureFooter() in assets/site.js, identical to every other page. -->
 
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""
+    defer></script>
   <script src="assets/site.js"></script>
 </body>
 </html>

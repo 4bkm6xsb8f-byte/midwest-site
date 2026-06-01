@@ -3,7 +3,7 @@ const PAGE_VIEW_ENDPOINT = `${DASHBOARD_URL}/api/analytics/page-view`;
 const SALES_INQUIRY_ENDPOINT = `${DASHBOARD_URL}/api/public/sales-inquiries`;
 const FAQ_ENDPOINT = `${DASHBOARD_URL}/api/public/faqs`;
 const FACEBOOK_URL = "https://www.facebook.com/midwestdockandlift";
-const FAVICON_VERSION = "20260422";
+const FAVICON_VERSION = "20260601";
 const form = document.querySelector("#estimate-form");
 const MAX_INQUIRY_PHOTOS = 5;
 const MAX_INQUIRY_PHOTO_BYTES = 12 * 1024 * 1024;
@@ -14,10 +14,134 @@ const ALLOWED_INQUIRY_PHOTO_TYPES = new Set([
   "image/heic",
   "image/heif",
 ]);
+const SERVICE_AREA_LOCATIONS = [
+  { name: "Mountain, Wisconsin", type: "Midwest base", lat: 45.207, lng: -88.425, featured: true },
+  { name: "Crivitz, Wisconsin", type: "Service community", lat: 45.288, lng: -88.335, featured: true },
+  { name: "Shawano Lake", type: "Served lake", lat: 44.874, lng: -88.551, featured: true },
+  { name: "Legend Lake", type: "Served lake", lat: 45.045, lng: -88.317, featured: true },
+  { name: "Lake Noquebay", type: "Served lake", lat: 45.216, lng: -88.218, featured: true },
+  { name: "White Potato Lake", type: "Served lake", lat: 45.324, lng: -88.479, featured: true },
+  { name: "Anderson Lake", type: "Served lake", lat: 45.144, lng: -88.272 },
+  { name: "Archibald Lake", type: "Served lake", lat: 45.099, lng: -88.308 },
+  { name: "Barnes Lake", type: "Served lake", lat: 45.252, lng: -88.479 },
+  { name: "Bear Lake", type: "Served lake", lat: 45.171, lng: -88.434 },
+  { name: "Bonita Pond", type: "Served lake", lat: 45.18, lng: -88.245 },
+  { name: "Boot Lake", type: "Served lake", lat: 45.288, lng: -88.443 },
+  { name: "Boulder Lake", type: "Served lake", lat: 45.243, lng: -88.38 },
+  { name: "Chain Lake", type: "Served lake", lat: 45.216, lng: -88.29 },
+  { name: "Chute Pond", type: "Served lake", lat: 45.18, lng: -88.362 },
+  { name: "Crooked Lake", type: "Served lake", lat: 45.279, lng: -88.497 },
+  { name: "Eagle Lake", type: "Served lake", lat: 45.225, lng: -88.317 },
+  { name: "Frog Lake", type: "Served lake", lat: 45.126, lng: -88.326 },
+  { name: "Grindle Lake", type: "Served lake", lat: 45.306, lng: -88.398 },
+  { name: "Haegen Lake", type: "Served lake", lat: 45.207, lng: -88.407 },
+  { name: "Half Moon Lake", type: "Served lake", lat: 45.261, lng: -88.416 },
+  { name: "High Falls Flowage", type: "Served lake", lat: 45.342, lng: -88.326 },
+  { name: "Kelly Lake", type: "Served lake", lat: 45.063, lng: -88.335 },
+  { name: "Left Foot Lake", type: "Served lake", lat: 45.324, lng: -88.371 },
+  { name: "Maiden Lake", type: "Served lake", lat: 45.315, lng: -88.308 },
+  { name: "Mary Lake", type: "Served lake", lat: 45.351, lng: -88.272 },
+  { name: "Moody Lake", type: "Served lake", lat: 45.117, lng: -88.263 },
+  { name: "Morgan Lake", type: "Served lake", lat: 45.198, lng: -88.524 },
+  { name: "Moshawquil Lake", type: "Served lake", lat: 45.09, lng: -88.38 },
+  { name: "Newton Lake", type: "Served lake", lat: 45.054, lng: -88.398 },
+  { name: "Ranch Lake", type: "Served lake", lat: 45.36, lng: -88.425 },
+  { name: "Rost Lake", type: "Served lake", lat: 45.297, lng: -88.29 },
+  { name: "Sandstone Flowage", type: "Served lake", lat: 45.306, lng: -88.344 },
+  { name: "Shay Lake", type: "Served lake", lat: 44.982, lng: -88.47 },
+  { name: "Thunder Lake", type: "Served lake", lat: 45.27, lng: -88.353 },
+  { name: "Ucil Lake", type: "Served lake", lat: 45.162, lng: -88.227 },
+  { name: "White Lake", type: "Served lake", lat: 44.964, lng: -88.506 },
+];
 
 function pathPrefix() {
   const path = window.location.pathname;
   return /\/(guides|services|areas)\//.test(path) ? "../" : "";
+}
+
+function initServiceAreaMap() {
+  const mapElement = document.querySelector("#service-area-map");
+  if (!(mapElement instanceof HTMLElement)) {
+    return;
+  }
+
+  if (!window.L || typeof window.L.map !== "function") {
+    mapElement.innerHTML = '<p class="map-fallback">The interactive map could not load right now. Please refresh the page or review the served lakes listed beside it.</p>';
+    return;
+  }
+
+  const map = window.L.map(mapElement, {
+    scrollWheelZoom: false,
+    zoomControl: true,
+  });
+
+  window.L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    minZoom: 8,
+    maxZoom: 14,
+  }).addTo(map);
+
+  const bounds = [];
+
+  SERVICE_AREA_LOCATIONS.forEach((location) => {
+    const marker = window.L.circleMarker([location.lat, location.lng], {
+      radius: location.featured ? 7 : 5,
+      color: "#ffffff",
+      weight: 2,
+      fillColor: location.featured ? "#1f8a78" : "#b26a3d",
+      fillOpacity: 0.95,
+    });
+
+    marker.bindPopup(`
+      <strong>${location.name}</strong>
+      <span>${location.type}</span>
+    `);
+    marker.addTo(map);
+    bounds.push([location.lat, location.lng]);
+  });
+
+  if (bounds.length > 0) {
+    map.fitBounds(bounds, {
+      padding: [28, 28],
+    });
+  } else {
+    map.setView([45.11, -88.42], 9);
+  }
+}
+
+// SERVICE_AREA_LOCATIONS is the single source of truth for served lakes. This
+// renders the on-page lake grid and the JSON-LD areaServed list from it so the
+// two stay in sync with the map automatically.
+function renderServiceAreaNames() {
+  const servedLakes = SERVICE_AREA_LOCATIONS
+    .filter((location) => location.type === "Served lake")
+    .map((location) => location.name)
+    .sort((a, b) => a.localeCompare(b));
+
+  const grid = document.querySelector("[data-lake-grid]");
+  if (grid) {
+    grid.replaceChildren(
+      ...servedLakes.map((name) => {
+        const span = document.createElement("span");
+        span.textContent = name;
+        return span;
+      })
+    );
+  }
+
+  const ldScript = document.querySelector('script[type="application/ld+json"]');
+  if (ldScript) {
+    try {
+      const data = JSON.parse(ldScript.textContent);
+      data.areaServed = [
+        ...servedLakes.map((name) => `${name}, Wisconsin`),
+        "Northeast Wisconsin",
+      ];
+      ldScript.textContent = JSON.stringify(data, null, 2);
+    } catch (_error) {
+      // Leave the baked-in structured data untouched if it can't be parsed.
+    }
+  }
 }
 
 function ensureFavicons() {
@@ -38,6 +162,10 @@ function ensureFavicons() {
       type: "image/png",
       sizes: "32x32",
       href: `${prefix}assets/images/favicon-32x32.png?v=${FAVICON_VERSION}`,
+    },
+    {
+      rel: "apple-touch-icon",
+      href: `${prefix}apple-touch-icon.png?v=${FAVICON_VERSION}`,
     },
     {
       rel: "shortcut icon",
@@ -508,5 +636,7 @@ ensureStaffNavLink();
 ensureFooter();
 initMobileNav();
 updateCurrentYear();
+renderServiceAreaNames();
+initServiceAreaMap();
 trackPageView();
 loadFaqs();
