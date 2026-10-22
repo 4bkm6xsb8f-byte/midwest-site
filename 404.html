@@ -33,7 +33,18 @@
     .nf-btn.alt:hover { background: var(--navy); border-color: var(--navy); color: var(--white); }
     .nf-links { margin-top: 1.75rem; font-size: 0.95rem; color: var(--muted); }
     .nf-links a { margin: 0 0.4rem; }
-    .nf-top { padding: 1rem 0; background: var(--navy); }
+    .nf-top { padding: 1rem 0; background: var(--navy); border-bottom: 4px solid var(--teal); }
+    .nf-card { position: relative; overflow: hidden; }
+    .nf-card::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 6px; background: linear-gradient(90deg, var(--navy), var(--steel), var(--teal)); }
+    .nf-eyebrow { margin: 0 auto 0.5rem !important; font-family: "IBM Plex Mono", monospace; font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--teal) !important; }
+    .nf-grid { list-style: none; margin: 1rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 0.6rem; text-align: left; }
+    .nf-grid a { display: block; padding: 0.7rem 1rem; border: 1px solid var(--border); border-radius: 14px; background: var(--offwhite); color: var(--navy); font-weight: 600; text-decoration: none; }
+    .nf-grid a:hover, .nf-grid a:focus-visible { border-color: var(--teal); color: var(--teal); }
+    .nf-more { margin: 2rem 0 0 !important; max-width: none !important; font-family: "Manrope", sans-serif; font-weight: 800; color: var(--navy) !important; }
+    @media (max-width: 520px) {
+      .nf-btn { width: 100%; text-align: center; }
+      .nf-grid { grid-template-columns: 1fr; }
+    }
     .nf-top a { display: inline-flex; align-items: center; gap: 0.75rem; text-decoration: none; }
     .nf-top img { height: 34px; width: auto; }
   </style>
@@ -49,6 +60,7 @@
   <main class="nf-main">
     <div class="wrap">
       <section class="nf-card">
+        <p class="nf-eyebrow">Page not found</p>
         <p class="nf-code" aria-hidden="true">4<span>0</span>4</p>
         <svg class="nf-wave" viewBox="0 0 120 14" fill="none" stroke="#1f8a78" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M2 7c10-8 18-8 28 0s18 8 28 0 18-8 28 0 18 8 30 0"/></svg>
         <h1>This page has drifted off the dock.</h1>
@@ -58,11 +70,16 @@
           <a class="nf-btn alt" href="/#contact">Request an Estimate</a>
           <a class="nf-btn alt" href="tel:+19203193625">Call 920-319-3625</a>
         </div>
-        <p class="nf-links">Or browse:
-          <a href="/#services">Services</a> &middot;
-          <a href="/#service-area">Service Area</a> &middot;
-          <a href="/support.html">Support</a>
-        </p>
+        <p class="nf-more">Popular pages</p>
+        <ul class="nf-grid">
+          <li><a href="/services/installation-removal.html">Dock Installation &amp; Removal</a></li>
+          <li><a href="/services/dock-lift-sales.html">Dock &amp; Lift Sales</a></li>
+          <li><a href="/services/repair-maintenance.html">Repair &amp; Maintenance</a></li>
+          <li><a href="/services/storage-winterization.html">Storage &amp; Winterization</a></li>
+          <li><a href="/services/shoreline-storm-recovery.html">Shoreline &amp; Storm Recovery</a></li>
+          <li><a href="/areas/">Service Areas</a></li>
+        </ul>
+        <p class="nf-links">Or visit <a href="/support.html">Support</a> &middot; <a href="mailto:info@midwestdockandlift.com">info@midwestdockandlift.com</a></p>
       </section>
     </div>
   </main>
