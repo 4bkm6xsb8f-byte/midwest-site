@@ -4,54 +4,67 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Page Not Found | Midwest Equipment Dock and Lift Services</title>
-  <meta name="description" content="The page you were looking for could not be found. Return to Midwest Equipment Dock and Lift Services for dock, lift, shoreline, storage, and winterization service in Northeast Wisconsin.">
-  <meta name="robots" content="noindex, follow">
+  <meta name="description" content="We couldn't find that page. Head back to Midwest Equipment Dock and Lift Services for docks, lifts, shoreline work, storage, and winterization in Northeast Wisconsin.">
+  <meta name="robots" content="noindex">
   <meta name="theme-color" content="#17324d">
   <link rel="icon" type="image/svg+xml" href="/assets/images/midwest-icon.svg?v=20260601a">
   <link rel="icon" type="image/png" href="/assets/images/favicon-32x32.png?v=20260601a" sizes="32x32">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=20260601a">
   <link rel="shortcut icon" href="/favicon.ico?v=20260601a">
   <link rel="stylesheet" href="/styles.css">
+  <style>
+    .nf-main { min-height: calc(100vh - 160px); display: grid; place-items: center; padding: 3rem 0 4rem; }
+    .nf-card {
+      max-width: 680px; margin: 0 auto; text-align: center; background: var(--white);
+      border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow-strong);
+      padding: clamp(2rem, 5vw, 3.5rem) clamp(1.25rem, 5vw, 3rem);
+    }
+    .nf-code { margin: 0; font-family: "Manrope", sans-serif; font-weight: 800; line-height: 1; letter-spacing: -0.04em;
+      font-size: clamp(5rem, 22vw, 9rem); color: var(--navy); }
+    .nf-code span { color: var(--teal); }
+    .nf-wave { display: block; width: 120px; height: 14px; margin: 1rem auto 1.5rem; }
+    .nf-card h1 { margin: 0 0 0.75rem; font-family: "Manrope", sans-serif; font-weight: 800; font-size: clamp(1.5rem, 4vw, 2rem); color: var(--navy); }
+    .nf-card p { margin: 0 auto 1.75rem; max-width: 46ch; color: var(--muted); }
+    .nf-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; }
+    .nf-btn { display: inline-block; padding: 0.8rem 1.5rem; border-radius: 999px; font-weight: 700; text-decoration: none;
+      background: var(--navy); color: var(--white); border: 2px solid var(--navy); }
+    .nf-btn:hover { background: var(--teal); border-color: var(--teal); color: var(--white); }
+    .nf-btn.alt { background: transparent; color: var(--navy); }
+    .nf-btn.alt:hover { background: var(--navy); border-color: var(--navy); color: var(--white); }
+    .nf-links { margin-top: 1.75rem; font-size: 0.95rem; color: var(--muted); }
+    .nf-links a { margin: 0 0.4rem; }
+    .nf-top { padding: 1rem 0; background: var(--navy); }
+    .nf-top a { display: inline-flex; align-items: center; gap: 0.75rem; text-decoration: none; }
+    .nf-top img { height: 34px; width: auto; }
+  </style>
 </head>
-<body class="page-shell">
-  <header class="site-header">
-    <div class="wrap header-inner">
-      <a class="brand" href="/index.html" aria-label="Midwest Equipment Dock and Lift Services home">
-        <img class="brand-logo" src="/assets/images/midwest-logo-full.svg" alt="Midwest Equipment Dock and Lift Services logo">
-        <span class="brand-copy">Midwest Equipment Dock and Lift Services</span>
+<body>
+  <header class="nf-top">
+    <div class="wrap">
+      <a href="/" aria-label="Midwest Equipment Dock and Lift Services home">
+        <img src="/assets/images/midwest-logo-full.svg" alt="Midwest Equipment Dock and Lift Services logo">
       </a>
-      <nav class="site-nav" aria-label="Primary">
-        <a href="/index.html#services">Services</a>
-        <a href="/index.html#service-area">Service Area</a>
-        <a href="/index.html#gallery">Gallery</a>
-        <a href="/index.html#resources">Seasonal Guides</a>
-        <a href="/index.html#contact">Contact</a>
-      </nav>
     </div>
   </header>
-
-  <section class="page-hero">
+  <main class="nf-main">
     <div class="wrap">
-      <span class="tag">404</span>
-      <h1>That page drifted off the dock.</h1>
-      <p>The page you were looking for could not be found. It may have moved, or the link may be out of date.</p>
-    </div>
-  </section>
-
-  <main class="page-content">
-    <div class="wrap">
-      <div class="page-card">
-        <p>Try one of these instead, or call the office and Midwest will point you in the right direction.</p>
-        <div class="contact-actions">
-          <a class="button button-primary" href="/index.html">Back to Home</a>
-          <a class="button button-secondary" href="/index.html#services">View Services</a>
-          <a class="button button-secondary" href="/index.html#quote">Request an Estimate</a>
-          <a class="button button-secondary" href="tel:9203193625">Call 920-319-3625</a>
+      <section class="nf-card">
+        <p class="nf-code" aria-hidden="true">4<span>0</span>4</p>
+        <svg class="nf-wave" viewBox="0 0 120 14" fill="none" stroke="#1f8a78" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M2 7c10-8 18-8 28 0s18 8 28 0 18-8 28 0 18 8 30 0"/></svg>
+        <h1>This page has drifted off the dock.</h1>
+        <p>The page you're looking for has moved or doesn't exist. Head back to the main site, or give us a call and we'll point you in the right direction.</p>
+        <div class="nf-actions">
+          <a class="nf-btn" href="/">Back to Home</a>
+          <a class="nf-btn alt" href="/#contact">Request an Estimate</a>
+          <a class="nf-btn alt" href="tel:+19203193625">Call 920-319-3625</a>
         </div>
-      </div>
+        <p class="nf-links">Or browse:
+          <a href="/#services">Services</a> &middot;
+          <a href="/#service-area">Service Area</a> &middot;
+          <a href="/support.html">Support</a>
+        </p>
+      </section>
     </div>
   </main>
-
-  <script src="/assets/site.js"></script>
 </body>
 </html>
