@@ -254,7 +254,7 @@ function ensureFooter() {
   footer.className = "site-footer";
   footer.innerHTML = `
     <div class="wrap footer-inner">
-      <p>&copy; <span data-current-year></span> Midwest Equipment Dock and Lift Services. All rights reserved.</p>
+      <p>&copy; <span data-current-year></span> Midwest Equipment Dock and Lift Services, LLC. All rights reserved.</p>
       <div class="footer-links">
         <a href="${DASHBOARD_URL}" target="_blank" rel="noreferrer">Staff Login</a>
         <a href="${prefix}index.html#quote">Request Estimate</a>
